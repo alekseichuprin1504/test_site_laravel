@@ -1,0 +1,71 @@
+/*col-lg*/
+@media screen and (min-width: 1200px){ 
+
+	#advantage h2, #contacts h2, #maps h2, #turs h2, #prokat h2, #price h2 {
+	    margin: 90px 0!important;
+	}
+
+}
+/*col-xl*/
+@media screen and (max-width: 1199px) { 
+	#advantage h2, #contacts h2, #maps h2, #turs h2, #prokat h2, #price h2 {
+	    margin: 90px 0!important;
+	}
+
+
+}
+/*col-md*/
+@media screen and (max-width: 991.98px) {
+	.logo{
+		margin: 21px 0!important;
+	}
+	.offer {
+	    padding: 50px 10px!important;
+	} 
+	#plus h2{
+	    margin: 45px 0!important;
+	}
+	#advantage h2, #contacts h2, #maps h2, #turs h2, #prokat h2, #price h2 {
+	    margin: 45px 0!important;
+	}
+	.menu__item {
+	    padding: 1px 1px!important;
+	}
+	.opened .menu {
+		margin-top: 10px!important;
+		padding-left: 0px!important;
+	}	
+}
+/*col-sm*/
+@media screen and (max-width: 767.98px){
+	
+
+}
+/*col*/
+@media (max-width: 575.98px) { 
+
+	.container{
+		width: 90%!important;
+	}
+	
+	.opened .menu .menu__item {
+	    margin-top: 1px!important;
+	    margin-bottom: 1px!important;
+	    margin-left: 1px!important;
+	}
+	.menu__item li {
+	    width: 100%!important;
+	}
+	
+	.offer {
+	    padding: 30px 10px!important;
+	}
+	.offer__title {
+	    font-size: 38px!important;
+	}
+	.offer__text {
+	    font-size: 25px!important;
+	    padding: 20px 0!important;
+	}
+}
+

@@ -1,0 +1,293 @@
+/*спецификация*/
+
+body{
+	font-family: 'Ubuntu', sans-serif;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+nav{
+	font-family: Natasha;
+}
+
+P.blocktext {
+    margin-left: auto;
+    margin-right: auto;
+    width: 6em
+}
+
+p{
+	padding: 0;
+	margin: 0;
+}
+
+ul,li{
+	box-sizing: border-box;
+	display: block;
+	padding: 0;
+	margin: 0!important;
+}
+
+div, section, span, input, button{
+	box-sizing: border-box;
+}
+
+button:active, button:hover, button:focus{
+	outline: none!important;
+}
+.opened {
+    order: 7;
+}
+
+.opened .menu {
+    background: #5EA326;
+    width: 100%;
+    border-radius: 4px;
+    padding-left: 25px!important;
+    flex-direction: column;
+}
+
+.opened .menu .menu__item {
+	margin-top: 10px!important;
+    margin-bottom: 10px!important;
+    margin-left: 10px!important;
+}
+
+
+.header{
+	background: url('../img/1.jpg') no-repeat center center /cover;
+	position: relative;
+	height: 100vh;
+}
+
+
+.button{
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 1;
+	color: #fff;
+	background: #5EA326;
+	border: none;
+	width: 158px;
+	padding: 17px 0;
+	cursor: pointer;
+	outline: none!important;
+	border-radius: 4px;
+}
+
+.header:before{
+	content: '';
+	position: absolute;
+	top: 0;
+	display: block;
+	width: 100%;
+	height: 79px;
+	/*background: rgba(229, 230, 232, 0.41); */
+	background: #5EA326;
+}
+.logo a{
+	color: #fff;
+	font-size: 25px;
+}
+.menu__item {
+	padding: 26px 6px;
+}
+.menu__item a{
+	font-size: 18px;
+	padding: 10px 12px;
+	color: #fff;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+.menu__item a:hover{
+	border: 1px solid #fff;
+	padding: 9px 11px;
+	text-decoration: none;
+}
+.phone{
+	font-size: 18px;
+	/*padding: 10px 12px;*/
+	color: #fff;
+	text-transform: uppercase;
+}
+.offer{
+	color: #fff;
+	margin: 80px 0;
+	padding: 15px;
+	background: rgba(229, 230, 232, 0.25);
+	border: 3px solid rgba(229, 230, 232, 0.35);
+}
+.offer__title{
+	font-size: 60px;
+	text-transform: uppercase;
+}
+.offer__text{
+	font-size: 35px;
+	padding: 50px 0;
+}
+.button__turs{
+	margin-right: 15px;
+}
+.button{
+	margin-bottom: 250px;
+}
+.button a{
+	color: #fff;
+}
+.button:hover{
+	background: #fff;
+	color: #5EA326;
+	text-decoration: none;
+}
+
+.el{
+	position: absolute;
+	bottom: 5%;
+	left: 50%;
+	margin-left: -25px;
+}
+.down{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	background: #5EA326;
+	color: #fff;
+	font-size: 30px;
+	font-weight: 700;
+	display: flex;
+	justify-content: center;
+}
+.product{
+	padding-bottom: 60px;
+}
+
+
+#footer{
+	background: #3C6818;
+}
+.footer{
+	padding: 50px 0;
+}
+.maps__google{
+	width: 100%;
+	height: 350px;
+}
+#plus h2{
+	text-align: center;
+	margin: 90px 0;
+	font-size: 35px;
+
+}
+#plus p{
+	text-align: justify;
+	font-size: 18px;
+
+
+}
+
+
+
+.header__page{
+	background: #5EA326;
+}
+
+
+.table{
+	margin-bottom: 20px;
+}
+#contacts{
+	margin-bottom: 50px;
+}
+.partner h2{
+	color: #555;
+	font-size: 25px!important;
+}
+.partners li{
+	margin: 10px 0;
+	padding: 25px 10px;
+}
+.partners img{
+	width: 150px;
+}
+iframe{
+	margin-bottom: 50px;
+}
+.advantage{
+	margin-bottom: 50px;
+}
+.advantage img{
+	width: 75px;
+}
+.advantage__groop{
+	width: 100%;
+}
+.advantage__title{
+	padding: 20px 0;
+	font-size: 20px;
+}
+.advantage__text{
+	font-size: 18px;
+}
+.prokat__text{
+	text-align: justify;
+	margin-bottom: 50px;
+}
+.social__ua img{
+	width: 25px;
+	height: auto;
+}
+/*прокат*/
+thead{
+	text-transform: uppercase;
+}
+td, th{
+	border: 1px solid #777!important;
+}
+.table th {
+    padding: .25rem!important;
+}
+/*контакт*/
+.nomer{
+	margin-left: 15px;
+}
+
+
+/*туры*/
+.turs{
+	margin: 20px;
+}
+.turs img{
+	width: 80%;
+}
+.turs__name{
+	margin: 20px 0;
+	font-size: 20px;
+	font-weight: 600;
+}
+.btn-secondary{
+	background: #5EA326!important;
+}
+.btn-light:focus, .btn-light:hover, .btn-light:active {
+    background: #fff!important;
+    border: 1px solid #5EA326!important;
+    color: #5EA326!important;
+}
+
+.btn-light {
+	border: 1px solid #fff!important;
+    background: #5EA326!important;
+    color: #fff;
+	margin-bottom: 25px;
+	cursor: pointer;
+}
+.turs p{
+	margin: 20px 25px 0 25px;
+	text-align: justify;
+}
+.modal-content img{
+	width: 65%!important;
+}
