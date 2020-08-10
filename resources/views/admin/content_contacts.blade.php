@@ -1,7 +1,7 @@
-<div style="margin:0px 50px 0px 50px;">   
+<div style="margin:0px 50px 0px 50px;">
 
 @if($contacts)
- 
+
     <div class="blocktext" align="center">
       <h2>{{$title}}</h2>
     </div>
@@ -24,13 +24,13 @@
             </tr>
         </thead>
         <tbody>
-        
+
         @foreach($contacts as $contact)
-        
+
         	<tr>
-        	
+
         		<td>{{ $contact->id }}</td>
-                
+
         		<td>{{ $contact->name }}</td>
         		<td>{{ $contact->contacts }}</td>
         		<td>{{ $contact->created_at }}</td>
@@ -38,23 +38,24 @@
                 <td><form action="{{route('admin_delete_contact',['id'=>$contact->id])}}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button class="btn btn-danger" type="submit">Удалить</button>
+                        @method('DELETE')
                 </form></td>
         	</tr>
-        
+
         @endforeach
 
 
-       
 
-        
-		
+
+
+
         </tbody>
     </table>
-@endif 
+@endif
 
         <a  href="{{route('admin_add_contacts')}}">
           <h5>Добавить новый контакт</h5>
           </a>
-        
+
 
 </div>

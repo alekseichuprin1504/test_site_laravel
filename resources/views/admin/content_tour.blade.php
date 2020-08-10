@@ -1,7 +1,7 @@
-<div style="margin:0px 50px 0px 50px;">   
+<div style="margin:0px 50px 0px 50px;">
 
 @if($tours)
- 
+
     <div class="blocktext" align="center">
       <h2>{{$title}}</h2>
     </div>
@@ -25,11 +25,11 @@
             </tr>
         </thead>
         <tbody>
-        
+
         @foreach($tours as $k => $tour)
-        
+
         	<tr>
-        	
+
         		<td>{{ $tour->id }}</td>
                 <td>{{ $tour->name }}</td>
         		<td>{{ $tour->text }}</td>
@@ -39,23 +39,24 @@
                 <td><form action="{{route('admin_delete_tour', ['tour_id'=>$tour->id])}}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button class="btn btn-danger" type="submit">Удалить</button>
+                        @method('DELETE')
                 </form></td>
         	</tr>
-        
+
         @endforeach
 
 
-       
 
-        
-		
+
+
+
         </tbody>
     </table>
-@endif 
+@endif
 
         <a  href="{{route('admin_add_tour')}}">
           <h5>Добавить новый тур</h5>
           </a>
-        
+
 
 </div>

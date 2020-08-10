@@ -10,9 +10,15 @@ use App\Http\Requests\ContactRequest;
 
 class ContactController extends Controller
 {
-
+    /**
+     * @var Contact
+     */
 	private $contacts;
 
+    /**
+     * ContactController constructor.
+     * @param Contact $contacts
+     */
 	public function __construct(Contact $contacts)
 	{
 		$this->contacts = $contacts;
@@ -26,6 +32,7 @@ class ContactController extends Controller
     {
     	$contacts = $this->contacts->get();
         $data = ['title' => 'Контакты','contacts' => $contacts];
+
         return view ('admin.contacts', $data);
     }
 
@@ -37,6 +44,7 @@ class ContactController extends Controller
     public function addContacts()
     {
     	$data = ['title' =>' Добавить новый контакт'];
+
         return view('admin.add_contacts', $data);
     }
 
@@ -48,12 +56,11 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-    	$input = $request->except('_token');
-        $contact = new Contact();
-        $contact->fill($input);
-            if($contact->save()){
-                return redirect('admin')->with('status', 'Страница добавлена');
-            }
+        $input = $request->except('_token');
+        $this->contacts->create($input);
+
+        return redirect('admin')->with('status', 'Страница добавлена');
+
     }
 
     /**
@@ -66,6 +73,7 @@ class ContactController extends Controller
     {
         $contact = Contact::find($id);
         $data = ['title' => 'Редактирование страницы - '. $contact->name,'contact' => $contact];
+
         return view('admin.contact_edit', $data);
     }
 
@@ -75,13 +83,14 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store_edit_contact(Request $request)
+    public function storeEditContact(Request $request)
     {
         $contact = $this->contacts->where('id', $request->id)->first();
         $contact->id=$request->id;
         $contact->name=$request->name;
         $contact->contacts=$request->contacts;
         $contact->save();
+
         return redirect('admin')->with('status', 'Контакт обновлен');
     }
 
@@ -91,8 +100,8 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function delete_contact(Request $request)
-    {  
+    public function deleteContact(Request $request)
+    {
         $contact = $this->contacts->where('id', $request->id)->first();
         $contact->delete();
         return redirect('admin/contacts')->with('status', 'Контакт удален');

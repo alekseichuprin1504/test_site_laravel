@@ -1,7 +1,7 @@
-<div style="margin:0px 50px 0px 50px;">   
+<div style="margin:0px 50px 0px 50px;">
 
 @if($conditions)
- 
+
     <div class="blocktext" align="center">
       <h2>{{$title}}</h2>
     </div>
@@ -25,11 +25,11 @@
             </tr>
         </thead>
         <tbody>
-        
+
         @foreach($conditions as $condition)
-        
+
         	<tr>
-        	
+
         		<td>{{ $condition->id }}</td>
                 <td>{{ $condition->time }}</td>
         		<td>{{ $condition->days }}</td>
@@ -39,23 +39,24 @@
                 <td><form action="{{route('admin_delete_condition', ['id'=>$condition->id])}}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button class="btn btn-danger" type="submit">Удалить</button>
+                        @method('DELETE')
                 </form></td>
         	</tr>
-        
+
         @endforeach
 
 
-       
 
-        
-		
+
+
+
         </tbody>
     </table>
-@endif 
+@endif
 
         <a  href="{{route('admin_add_condition')}}">
           <h5>Добавить новое условие проката</h5>
           </a>
-        
+
 
 </div>

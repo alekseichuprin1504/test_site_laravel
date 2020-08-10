@@ -9,9 +9,15 @@ use App\Http\Requests\ConditionRequest;
 
 class ConditionController extends Controller
 {
+    /**
+     * @var Condition
+     */
+    private $condition;
 
-	private $condition;
-
+    /**
+     * ConditionController constructor.
+     * @param Condition $condition
+     */
 	public function __construct(Condition $condition)
 	{
 		$this->condition = $condition;
@@ -25,6 +31,7 @@ class ConditionController extends Controller
     {
     	$conditions = $this->condition->get();
         $data = ['title' => 'Условия проката','conditions' => $conditions];
+
         return view('admin.condition', $data);
     }
 
@@ -36,6 +43,7 @@ class ConditionController extends Controller
     public function addCondition()
     {
     	$data = ['title' =>' Добавить новое условие проката'];
+
         return view('admin.add_condition', $data);
     }
 
@@ -48,24 +56,21 @@ class ConditionController extends Controller
     public function store(ConditionRequest $request)
     {
     	$input = $request->except('_token');
-        $condition = new Condition();
-        $condition->fill($input);
+        $this->condition->create($input);
 
-        if($condition->save()){
-            return redirect('admin')->with('status', 'Условие проката добавлена');
-        }
+        return redirect('admin')->with('status', 'Условие проката добавлена');
+
     }
 
     /**
-     * Show the form for editing the specified condition.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param ConditionRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(int $id)
+    public function edit(ConditionRequest $request)
     {
-    	$condition = Condition::find($id);
+        $condition = $this->condition->where('id', $request->id)->first();
         $data = ['title' => 'Редактирование страницы - "Условия проката"','condition' => $condition];
+
         return view('admin.condition_edit', $data);
     }
 
@@ -75,14 +80,15 @@ class ConditionController extends Controller
      * @param  \App\Http\Requests\ConditionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store_edit_condition(ConditionRequest $request)
+    public function storeEditCondition(ConditionRequest $request)
     {
         $condition = $this->condition->where('id', $request->id)->first();
-        $condition->id=$request->id;
-        $condition->time=$request->time;
-        $condition->days=$request->days;
-        $condition->price=$request->price;
+        $condition->id = $request->id;
+        $condition->time = $request->time;
+        $condition->days = $request->days;
+        $condition->price = $request->price;
         $condition->save();
+
         return redirect('admin/conditions')->with('status', 'Условие обновлено');
     }
 
@@ -92,10 +98,11 @@ class ConditionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function delete_condition(Request $request)
-    {  
+    public function deleteCondition(Request $request)
+    {
         $condition = $this->condition->where('id', $request->id)->first();
         $condition->delete();
+
         return redirect('admin/contacts')->with('status', 'Условие удалено');
     }
 }

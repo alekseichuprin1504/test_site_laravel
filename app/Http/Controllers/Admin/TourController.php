@@ -9,9 +9,15 @@ use App\Http\Requests\TourRequest;
 
 class TourController extends Controller
 {
-
+    /**
+     * @var Tour
+     */
 	private $tour;
 
+    /**
+     * TourController constructor.
+     * @param Tour $tour
+     */
 	public function __construct(Tour $tour)
 	{
 		$this->tour = $tour;
@@ -24,7 +30,8 @@ class TourController extends Controller
     public function index()
     {
     	$tours = $this->tour->get();
-        $data = ['title' => 'Туры','tours' => $tour];
+        $data = ['title' => 'Туры','tours' => $tours];
+
         return view ('admin.tour', $data);
     }
 
@@ -36,6 +43,7 @@ class TourController extends Controller
     public function addContacts()
     {
         $data = ['title' =>' Добавить новый тур'];
+
         return view('admin.add_tour', $data);
     }
 
@@ -47,17 +55,15 @@ class TourController extends Controller
      */
     public function store(TourRequest $request)
     {
-        $input = $request->except('_token');
-            if($request->hasFile('image')){
-                $file = $request->file('image'); 
-                $input['image'] = $file->getClientOriginalName();
-                $file->move(public_path().'/assets/img', $input['image']);
-            }
-        $tour = new Tour();
-        $tour->fill($input);
-            if($tour->save()){
-                return redirect('admin')->with('status', 'Тур добавлен');
-            }
+        $data = $request->except('_token');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $input['image'] = $file->getClientOriginalName();
+            $file->move(public_path() . '/assets/img', $input['image']);
+        }
+        $this->tour->create($data);
+
+        return redirect('admin')->with('status', 'Тур добавлен');
     }
 
     /**
@@ -70,6 +76,7 @@ class TourController extends Controller
     {
         $tour = $this->tour->where('id', $id)->first();
         $data = ['title' => 'Редактирование страницы - '. $tour->name,'tour' => $tour];
+
         return view('admin.tour_edit', $data);
     }
 
@@ -79,7 +86,7 @@ class TourController extends Controller
      * @param  \App\Http\Requests\TourRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store_edit_tour(TourRequest $request)
+    public function storeEditTour(TourRequest $request)
     {
         $tour = $this->tour->where('id', $request->id)->first();
         $tour->id=$tour->id;
@@ -87,6 +94,7 @@ class TourController extends Controller
         $tour->text=$request->text;
         $tour->image=$request->image;
         $tour->save();
+
         return redirect('admin')->with('status', 'Тур обновлен');
     }
 
@@ -96,10 +104,11 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function delete_tour(Request $request)
-    {  
-            $tour = $this->tour->where('id', $request->id)->first();
-            $tour->delete();
-            return redirect('admin/tours')->with('status', 'Тур удален');
+    public function deleteTour(Request $request)
+    {
+        $tour = $this->tour->where('id', $request->id)->first();
+        $tour->delete();
+
+        return redirect('admin/tours')->with('status', 'Тур удален');
     }
 }

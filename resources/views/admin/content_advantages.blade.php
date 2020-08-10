@@ -1,7 +1,7 @@
-<div style="margin:0px 50px 0px 50px;">   
+<div style="margin:0px 50px 0px 50px;">
 
 @if($advantages)
- 
+
     <div class="blocktext" align="center">
       <h2>{{$title}}</h2>
     </div>
@@ -25,13 +25,13 @@
             </tr>
         </thead>
         <tbody>
-        
+
         @foreach($advantages as $k => $advantage)
-        
+
         	<tr>
-        	
+
         		<td>{{ $advantage->id }}</td>
-                
+
         		<td>{{ $advantage->name }}</td>
         		<td>{{ $advantage->text }}</td>
         		<td>{{ $advantage->logo }}</td>
@@ -40,23 +40,24 @@
                 <td><form action="{{route('admin_delete_advantages', ['advantage_id'=>$advantage->id])}}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <button class="btn btn-danger" type="submit">Удалить</button>
+                        @method('DELETE')
                 </form></td>
         	</tr>
-        
+
         @endforeach
 
 
-       
 
-        
-		
+
+
+
         </tbody>
     </table>
-@endif 
+@endif
 
         <a  href="{{route('admin_add_advantages')}}">
           <h5>Добавить новое преимущество</h5>
           </a>
-        
+
 
 </div>

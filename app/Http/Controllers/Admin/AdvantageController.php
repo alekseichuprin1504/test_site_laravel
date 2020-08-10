@@ -5,13 +5,20 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Advantage;
+use App\Http\Requests\AdvantageRequest;
 use Validator;
 
 class AdvantageController extends Controller
 {
-
+    /**
+     * @var Advantage
+     */
 	private $advantages;
 
+    /**
+     * AdvantageController constructor.
+     * @param Advantage $advantages
+     */
 	public function __construct(Advantage $advantages)
 	{
 		$this->advantages = $advantages;
@@ -19,12 +26,12 @@ class AdvantageController extends Controller
 
     /**
      * Display a listing of the advantage pages.
-     *
      */
     public function index()
     {
     	$advantages = $this->advantages->get();
         $data = ['title' => 'Преимущества','advantages' => $advantages];
+
         return view ('admin.advantages', $data);
     }
 
@@ -38,6 +45,7 @@ class AdvantageController extends Controller
     {
         $advantages = $this->advantages->where('id', $id)->first();
         $data = ['title' => 'Редактирование страницы - '. $this->advantages->name,'advantage' => $advantages];
+
         return view('admin.advantage_edit', $data);
     }
 
@@ -47,10 +55,11 @@ class AdvantageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete_advantages(int $id)
+    public function deleteAdvantages(int $id)
     {
         $advantages = $this->advantages->where('id', $id)->first();
         $advantages->delete();
+
         return redirect('admin')->with('status', 'преимущество удалено');
     }
 
@@ -62,68 +71,42 @@ class AdvantageController extends Controller
     public function addAdvantages()
     {
         $data = ['title' =>' Добавить новое преимущество'];
+
         return view('admin.add_advantages', $data);
     }
 
     /**
-     * Store a newly created advantage in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AdvantageRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(AdvantageRequest $request)
     {
-        $data = $request->except('_token');
-        $messages = ['required' => 'Поле :attribute обязательно к заполнению'];
-        $validator = Validator::make($data, [
-            'name' => 'required|max:255',
-            'text' => 'required'
-        ], $messages);
-
-        if($validator->fails()){
-            return redirect()->route('admin_add_advantages')->withErrors($validator)->withInput();
-        }
+        $data = $request->all();
         if($request->hasFile('logo')){
-            $file = $request->file('logo'); 
+            $file = $request->file('logo');
             $data['logo'] = $file->getClientOriginalName();
             $file->move(public_path().'/assets/img', $data['logo']);
         }
+        $this->advantages->create($data);
 
-       $advantage = new Advantage();
-       $advantage->fill($data);
-
-       if($advantage->save()){
-            return redirect('admin')->with('status', 'Преимущество добавлено');
-        }
+        return redirect('admin')->with('status', 'Преимущество добавлено');
 }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param AdvantageRequest $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store_edit(Request $request)
+    public function storeEdit(AdvantageRequest $request)
     {
         $input = $request->except('_token');
         $advantage = $this->advantages->where('id', $request->id)->first();
-        $messages = ['required' => 'Поле :attribute обязательно к заполнению' ];
-        $validator = Validator::make($input, [
-            'name' => 'required|max:100',
-            'text' => 'required'
-        ], $messages);
-
-            if($validator->fails()){
-            return redirect()->back()->withErrors($validator);
-            }
-            if($request->hasFile('logo')){
+        if ($request->hasFile('logo')) {
             $file = $request->file('logo');
-            $file->move(public_path().'/assets/img', $file->getClientOriginalName());
+            $file->move(public_path() . '/assets/img', $file->getClientOriginalName());
             $input['logo'] = $file->getClientOriginalName();
-            }
-
+        }
         $advantage->fill($input);
-            if($advantage->update()){
+        if ($advantage->update()) {
             return redirect('admin')->with('status', 'Преимущество обновлено');
         }
     }
